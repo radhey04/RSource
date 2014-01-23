@@ -46,9 +46,10 @@ ad1 <- as.numeric(am[ ,1])
 
  # Part 4:
  data <- read.csv("outcome-of-care-measures.csv", colClasses="character")
- d2 <- data[data$State=="AL", ]
+ d2 <- data[data$State=="MD", ]
  #class(d2[3,11])
- d2[ ,11] <- as.numeric(as.character(d2[ ,11]))
+ b <- 23
+ d2[ ,b] <- as.numeric(as.character(d2[ ,b]))
  #class(d2[4,11])
  #d2[1,c(7,11,17,23)]
  #class(d2)
@@ -57,14 +58,14 @@ ad1 <- as.numeric(am[ ,1])
  
  #d3[4,c(1,2,3)]
  #d3[ ,c(2,3,4,)] <- as.numeric(d3[ ,c(2,3,4)])
- d4 <- d2[, c(7,11)]
- d4[4:8,c(1,2)]
+ d4 <- d2[, c(2,7,b)]
+ #d4[4:8,c(1,2)]
  #d4[,2] <- as.numeric(d4[,2])
  #d4[4,c(1,2)]
  gd4 <- complete.cases(d4)
- gd4[4:8]
+ # gd4[4:8]
  d4 <- d4[gd4,]
- d4[1:5,c(1,2)]
+ # d4[1:5,c(1,2)]
  #d4
  #d4[ ,2] <- as.numeric(d4[,2])
  #length(d5)
@@ -73,6 +74,8 @@ ad1 <- as.numeric(am[ ,1])
  #d6 <- d4[gd2,][,]
  #d6[ ,2] <- as.numeric(d6[,2])
  #nrow(d6)
- d7 <- d4[order(d4[ ,2]), ]
- d7[,2]
- min(d7[ ,2])
+ d7 <- d4[order(d4[ ,3]), ]
+ d8 <- d7[d7[ ,3] == min(d7[ ,3]), ]
+ d9 <- d8[order(d8[ ,1]), ]
+ d9[1,1]
+ 
