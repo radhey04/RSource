@@ -1,0 +1,53 @@
+best <- function(state, outcome) {
+  ## Read outcome data
+  ## Check that state and outcome are valid
+  ## Return hospital name in that state with lowest 30-day death
+  ## rate
+  #outcome = "pneumonia"
+  #state = "MD"
+  b1 <- outcome == "heart attack"
+  b2 <- outcome == "heart failure"
+  b3 <- outcome == "pneumonia"
+  b <- 0
+  
+  if(b1) b <- 11
+  if(b2) b <- 17
+  if(b3) b <- 23
+  if( !(b1 || b2 || b3) ) {
+    msg1 <- paste('Error in best("',state,'", "',outcome,'") : invalid outcome')
+    print(noquote(msg1))
+    return
+  }
+          
+  #state = "MD"
+  #b <- 11
+  data <- read.csv("outcome-of-care-measures.csv", colClasses="character")
+  d2 <- data[data$State==state, ]
+  
+  # function pmatch(x, table), matches the elements of the 'x' char 
+  # vector in 'table' vector and return the first-match positions
+  # of 'x' in 'table' vector.
+  # pmatch(state, names(table(data$State)))
+  nn <- pmatch(state, names(table(data$State)))
+  bad <- is.na(nn)
+  #print(nn)
+  #class(nn)
+  #nl <- nn==0
+  #class(nl)
+  if( bad ){
+    msg2 <- paste('Error in best("',state,'", "',outcome,'") : invalid state')
+    print(noquote(msg2))
+    return
+  }
+  # print(names(table(data[ ,7])))
+  # lvl <- levels(good1)
+  
+  d2[ ,b] <- as.numeric(as.character(d2[ ,b]))
+  d4 <- d2[, c(2,7,b)]
+  gd4 <- complete.cases(d4)
+  d4 <- d4[gd4,]
+  d7 <- d4[order(d4[ ,3]), ]
+  d8 <- d7[d7[ ,3] == min(d7[ ,3]), ]
+  d9 <- d8[order(d8[ ,1]), ]
+  d9[1,1]
+}
