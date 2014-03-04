@@ -1,0 +1,5 @@
+
+# text analysis:
+posi_np = grep("newspaper", data[,"Call.Source"])
+
+data[posi_np,"Call.Source"] = rep("newspaper",length(posi_np))
